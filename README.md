@@ -1,17 +1,17 @@
-# react-native-collapsible-header-list
+# react-native-animated-header-list
 
 An animated header list running on 60 FPS for React Native powered by Reanimated 2
 
 ## Installation
 
 ```sh
-npm install react-native-collapsible-header-list
+npm install react-native-animated-header-list
 ```
 
 ## Usage
 
 ```js
-import { multiply } from 'react-native-collapsible-header-list';
+import { multiply } from 'react-native-animated-header-list';
 
 // ...
 

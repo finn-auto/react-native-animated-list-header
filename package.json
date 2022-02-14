@@ -13,7 +13,7 @@
     "android",
     "ios",
     "cpp",
-    "react-native-collapsible-header-list.podspec",
+    "react-native-animated-header-list.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",
