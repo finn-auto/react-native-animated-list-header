@@ -1,6 +1,6 @@
 # react-native-collapsible-header-list
 
-A collapsible header list running on 60 FPS on Android and iOS (Reanimated 2)
+An animated header list running on 60 FPS for React Native powered by Reanimated 2
 
 ## Installation
 
@@ -11,7 +11,7 @@ npm install react-native-collapsible-header-list
 ## Usage
 
 ```js
-import { multiply } from "react-native-collapsible-header-list";
+import { multiply } from 'react-native-collapsible-header-list';
 
 // ...
 
