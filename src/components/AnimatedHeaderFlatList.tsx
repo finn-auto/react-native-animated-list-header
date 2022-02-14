@@ -1,18 +1,14 @@
 import React, { forwardRef } from 'react';
 import { FlatList } from 'react-native';
 import Animated from 'react-native-reanimated';
+import type { BaseProps } from 'src/types';
 import useAnimatedScrollHeader from '../hooks/useAnimatedScrollHeader';
 import AnimatedHeader from './AnimatedHeader';
 
-type AnimatedHeaderFlatListProps = {
-  headerHeight: number;
-  renderHeader: () => React.ReactElement;
-} & React.ComponentProps<typeof Animated.FlatList>;
+type AnimatedHeaderFlatListProps = BaseProps &
+  React.ComponentProps<typeof Animated.FlatList>;
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
-
-// Generic forwarded ref type assertion taken from:
-// https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
 
 const AnimatedHeaderFlatList = forwardRef(
   (
@@ -40,6 +36,10 @@ const AnimatedHeaderFlatList = forwardRef(
     );
   }
 );
+
+// Generic forwarded ref type assertion taken from:
+// https://fettblog.eu/typescript-react-generic-forward-refs/#option-1%3A-type-assertion
+
 export default AnimatedHeaderFlatList as (
   props: AnimatedHeaderFlatListProps & { ref?: React.ForwardedRef<FlatList> }
 ) => JSX.Element;
