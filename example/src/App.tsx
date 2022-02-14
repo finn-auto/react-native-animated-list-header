@@ -1,31 +1,82 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-collapsible-header-list';
+import {
+  StyleSheet,
+  Image,
+  Dimensions,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+} from 'react-native';
+import {
+  AnimatedHeaderFlatList,
+  AnimatedHeaderScrollView,
+} from 'react-native-collapsible-header-list';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
-  return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
-  );
-}
+const IMAGE_URI =
+  'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80';
+const IMAGE_HEIGHT = Dimensions.get('screen').height / 2;
+const DATA = [...Array(10).keys()];
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  image: {
+    width: '100%',
+    height: IMAGE_HEIGHT,
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  item: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  contentContainer: {
+    backgroundColor: 'white',
+    minHeight: Dimensions.get('screen').height - IMAGE_HEIGHT,
   },
 });
+
+const Item = ({ index }: { index: number }) => {
+  return (
+    <View style={styles.item}>
+      <Text>{index}</Text>
+    </View>
+  );
+};
+
+const Header = () => {
+  return (
+    <Image
+      height={IMAGE_HEIGHT}
+      style={styles.image}
+      source={{
+        uri: IMAGE_URI,
+      }}
+    />
+  );
+};
+
+export default function App() {
+  const scrollViewRef = useRef<ScrollView>(null);
+  const flatListRef = useRef<FlatList>(null);
+  return false ? (
+    <AnimatedHeaderScrollView
+      contentContainerStyle={styles.contentContainer}
+      ref={scrollViewRef}
+      headerHeight={IMAGE_HEIGHT}
+      renderHeader={Header}
+    >
+      {DATA.map((index) => (
+        <Item key={`${index}`} index={index} />
+      ))}
+    </AnimatedHeaderScrollView>
+  ) : (
+    <AnimatedHeaderFlatList
+      ref={flatListRef}
+      headerHeight={IMAGE_HEIGHT}
+      renderHeader={Header}
+      contentContainerStyle={styles.contentContainer}
+      data={DATA}
+      keyExtractor={(item: number) => `${item}`}
+      renderItem={({ index }) => <Item index={index} />}
+    />
+  );
+}
